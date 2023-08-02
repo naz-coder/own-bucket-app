@@ -9,6 +9,8 @@ import {
 
 const UserPost = ({ postId, userName, kaption, imgSrc }) => {
   const [userComments, setUserComments] = useState([]);
+    const [isVisible, setIsVisible] = useState(true); 
+    // New state variable to manage visibility
 
   useEffect(() => {
     let unsubscribe;
@@ -28,15 +30,20 @@ const UserPost = ({ postId, userName, kaption, imgSrc }) => {
 
   return (
     <PostStyles>
-      <div className="post-container">
-        <div className="post-header">
-          <h3>{userName}</h3>
+      {isVisible && ( // Use isVisible state to conditionally render the post-container
+        <div className="card-outter">
+        <div className="post-container">
+          <img src={imgSrc} className="post-image" />
+          <p className="post-text">{kaption}</p>
+          <button className="del-btn" onClick={() => setIsVisible(false)}>
+            Delete
+          </button>
         </div>
-        <img src={imgSrc} className="post-image" />
-        <p className="post-text">{kaption}</p>
-      </div>
+        </div>
+      )}
     </PostStyles>
   );
 };
 
 export default UserPost;
+
